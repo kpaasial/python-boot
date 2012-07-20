@@ -21,10 +21,7 @@ def main():
 
     uniquenames = set()
 
-    package_origins = get_installed_packages()
-
-
-    for origin in package_origins:
+    for origin in get_installed_packages():
         uniquename = get_make_variable('UNIQUENAME', '/'.join([portsdir, origin]))
         uniquenames.add(uniquename)
 
