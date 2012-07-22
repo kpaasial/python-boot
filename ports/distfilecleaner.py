@@ -10,15 +10,12 @@
 # script)
 
 # For each installed package:
-# - find out MASTERDIR for the port using origin of the package and
-#   make -V MASTERDIR in the origin directory
-# - extract distfiles from the distinfo -file, keep name (with full path),
-#   size and SHA256 sum. Keep the file names in a hash, file name as the
-#   key, other attributes as values.
+# - find out distinfo file for the port using origin of the package, look up
+#   DISTINFO_FILE make variable if no file is found in the origin directory. 
+# - Extract distfiles from the distinfo files, store name (relative to 
+#   DISTDIR), size and SHA256 sum in a hash, file name as the
+#   key.
 # 
-# For each file in DISTDIR:
-# - if the file name is not in the hash or its size doesn't match or its
-# sha256 sum doesn't match, print out the full path of the file.
 
 from pb_utils import my_popen, get_make_variable, get_installed_packages
 from pb_utils import get_file_sha256
@@ -44,9 +41,6 @@ def main():
 
     # All distinfo files for installed packages
     distinfofiles = []
-
-    # MASTERDIR for each installed package, key is the origin port
-    port_masterdir = {}
 
     checksum_mode = False
     size_mode = False
@@ -83,12 +77,12 @@ def main():
     for origin in get_installed_packages():
         distinfo_file = '/'.join([portsdir, origin, 'distinfo']) 
         if not exists(distinfo_file):
+            # Try with make(1)
             distinfo_file = get_make_variable('DISTINFO_FILE', '/'.join([portsdir, origin]))
         if exists(distinfo_file):
             distinfofiles.append(distinfo_file)
             
     # Prepare the regexp for parsing the lines
-
     p = re.compile('^(SHA256|SIZE) \(([^)]+)\) = ([a-z0-9]+|IGNORE)$')        
     
     # Read all the distinfo files in one loop
