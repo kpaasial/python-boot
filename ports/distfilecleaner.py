@@ -81,13 +81,12 @@ def main():
     # Start with getting a list of installed packages and
     # make a list of all distinfo files for installed packages.
     for origin in get_installed_packages():
-        masterdir = get_make_variable('MASTERDIR', '/'.join([portsdir, origin]))
-        port_masterdir[origin] = masterdir[portsdir_len+1:]
-        distinfo_file = '/'.join([masterdir, 'distinfo']) 
+        distinfo_file = '/'.join([portsdir, origin, 'distinfo']) 
+        if not exists(distinfo_file):
+            distinfo_file = get_make_variable('DISTINFO_FILE', '/'.join([portsdir, origin]))
         if exists(distinfo_file):
             distinfofiles.append(distinfo_file)
-
-
+            
     # Prepare the regexp for parsing the lines
 
     p = re.compile('^(SHA256|SIZE) \(([^)]+)\) = ([a-z0-9]+|IGNORE)$')        
