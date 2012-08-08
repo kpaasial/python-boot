@@ -1,14 +1,17 @@
 PKGNG = '/usr/local/sbin/pkg'
 
-
+import os
+import sys
+import hashlib 
+import subprocess
 def my_popen(*cmdLine, returnOutput=True):
     if returnOutput is True:
-        stdOutFile = os.PIPE
+        stdOutFile = subprocess.PIPE
     else:
         stdOutFile = None
 
     try:
-        p = os.Popen(*cmdLine, stdout=stdOutFile)
+        p = subprocess.Popen(*cmdLine, stdout=stdOutFile)
     except OSError as err:
         print (err, file=sys.stderr)
         return
