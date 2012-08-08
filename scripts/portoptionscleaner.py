@@ -11,7 +11,8 @@
 
 from os import walk
 from os.path import split
-from pb_utils import my_popen, get_make_variable, get_installed_packages
+from pb_utils.portutils import my_popen, get_make_variable, get_installed_packages
+
 
 portsdir = '/usr/ports'
 port_dbdir = '/var/db/ports'

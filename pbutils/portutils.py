@@ -1,18 +1,14 @@
 PKGNG = '/usr/local/sbin/pkg'
 
-from os import stat
-from subprocess import Popen, PIPE
-from sys import stderr
-from hashlib import sha256
 
 def my_popen(*cmdLine, returnOutput=True):
     if returnOutput is True:
-        stdOutFile = PIPE
+        stdOutFile = os.PIPE
     else:
         stdOutFile = None
 
     try:
-        p = Popen(*cmdLine, stdout=stdOutFile)
+        p = os.Popen(*cmdLine, stdout=stdOutFile)
     except OSError as err:
         print (err, file=sys.stderr)
         return
@@ -55,7 +51,7 @@ def get_installed_packages():
 def get_file_sha256(file):
 
     chunk_size = 1048576
-    file_sha256_checksum = sha256()
+    file_sha256_checksum = hashlib.sha256()
 
 
     with open(file, "rb") as f:
@@ -71,6 +67,7 @@ def get_file_sha256(file):
 # Return the size of a file in bytes
 def get_file_size(file):
     # use os.stat() to figure out the size
-    statinfo = stat(file)
+    statinfo = os.stat(file)
+
     return str(statinfo.st_size)
 
