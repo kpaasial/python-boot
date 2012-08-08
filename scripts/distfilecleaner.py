@@ -17,8 +17,8 @@
 #   key.
 # 
 
-from pb_utils.portutils import my_popen, get_make_variable, get_installed_packages
-from pb_utils.portutils import get_file_sha256
+from pbutils.portutils import my_popen, get_make_variable, get_installed_packages
+from pbutils.portutils import get_file_sha256
 import getopt
 from sys import argv, stderr
 import re
