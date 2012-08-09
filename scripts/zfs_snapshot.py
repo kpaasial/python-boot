@@ -19,8 +19,8 @@ from subprocess import call
 from time import strftime
 from string import Template
 
-from zfs_utils import ttl_to_seconds, TTL_PROPERTY
-from zfs_utils import zfs_list
+from zfsutils import ttl_to_seconds, TTL_PROPERTY
+from zfsutils import zfs_list
 
 def main():
     prefix = 'snapshot'

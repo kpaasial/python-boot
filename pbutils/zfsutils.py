@@ -1,5 +1,5 @@
 from re import match
-from pb_utils import my_popen
+from pbutils import my_popen
 
 TTL_PROPERTY = 'zfs_snapshot:time_to_live'
 SECONDS_MINUTE = 60
@@ -49,27 +49,6 @@ def ttl_to_seconds(ttl):
         return SECONDS_MONTH * number
     elif qualifier == 'y':
         return SECONDS_YEAR * number
-
-# Encapsulates Popen into a single method that does error checking and returns
-# the data as a proper python string.
-#def my_popen(*cmdLine, returnOutput=True):
-#    if returnOutput is True:
-#        stdOutFile = PIPE
-#    else:
-#        stdOutFile = None
-#
-#    try:
-#        p = Popen(*cmdLine, stdout=stdOutFile)
-#    except OSError as err:
-#        print (err, file=sys.stderr)
-#        return
-#    
-#    if returnOutput is True:
-#        output = p.communicate()[0]
-        # TODO: Check for errors, check that different locale does
-        # not affect what we get as output
-#        decodedOutput = output.decode()
-#        return decodedOutput
 
 
 

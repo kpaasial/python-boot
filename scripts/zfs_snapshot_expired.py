@@ -25,8 +25,8 @@ from subprocess import Popen, PIPE
 from time import time, strptime, mktime
 from locale import setlocale,LC_ALL
 
-from zfs_utils import ttl_to_seconds, TTL_PROPERTY
-from zfs_utils import zfs_list, zpool_list
+from zfsutils import ttl_to_seconds, TTL_PROPERTY
+from zfsutils import zfs_list, zpool_list
 
 # Functions
  
@@ -104,8 +104,6 @@ def main():
     # If any dataset names were given on the command line, filter the output so that
     # only the snapshots from those datasets are included
     if len(args) > 0:
-        # TODO: this does not work atm. This should expand the given datasets
-        # with 'zfs list -r' to a full list
         dataSetsToMatch = set()
         for arg in args:
             dataSetPlusChildren = zfs_list(arg, recursion=True)
