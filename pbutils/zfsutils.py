@@ -1,5 +1,5 @@
 from re import match
-from pbutils import my_popen
+from pbutils.portutils import my_popen
 
 TTL_PROPERTY = 'zfs_snapshot:time_to_live'
 SECONDS_MINUTE = 60

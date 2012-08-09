@@ -10,6 +10,9 @@ setup(name='Python Boot',
         author_email='kpaasial@gmail.com',
         url='https://github.com/kpaasial/python-boot',
         py_modules=['pbutils.portutils', 'pbutils.zfsutils'],
-        scripts = ['scripts/distfilecleaner.py', 'scripts/portoptionscleaner.py']
+        scripts = [ 'scripts/distfilecleaner.py',
+                    'scripts/portoptionscleaner.py',
+                    'scripts/zfs_snapshot.py', 
+                    'scripts/zfs_snapshot_expired.py' ]
 )
     
