@@ -21,12 +21,11 @@
 import getopt
 from sys import argv, stderr
 import re
-from subprocess import Popen, PIPE
 from time import time, strptime, mktime
 from locale import setlocale,LC_ALL
 
-from zfsutils import ttl_to_seconds, TTL_PROPERTY
-from zfsutils import zfs_list, zpool_list
+from pbutils.zfsutils import ttl_to_seconds, TTL_PROPERTY
+from pbutils.zfsutils import zfs_list, zpool_list
 
 # Functions
  
@@ -40,12 +39,6 @@ from zfsutils import zfs_list, zpool_list
 # allow different ways of encoding the TTL value. The default is now the zfSnap way
 # but other methods could be used some day.
 def get_zfs_snapshots():
-    # TODO: handle errors
-    # TODO: this does the same as get_zfs_datasets with the difference of the properties,
-    # consider merging 
-    #p = Popen(['/sbin/zfs', 'list', '-H', '-o', 'name,creation,' + ZFS_SNAPSHOT_TTL_PROPERTY, '-t', 'snapshot'], stdout=PIPE)
-    #output = p.communicate()[0] # zero index equals stdout
-    #print output
     allSnapShots = zfs_list(dataSetTypes=['snapshot'],
                             properties=['name', 'creation',
                             TTL_PROPERTY])
@@ -116,7 +109,6 @@ def main():
         for dataSet in allDataSets:
             dataSetsToMatch.add(dataSet['name'])
 
-    #print(dataSetsToMatch, file=stderr) 
 
     # Get all snapshots
     allSnapShots = get_zfs_snapshots()
